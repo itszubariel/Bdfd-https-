@@ -1,276 +1,88 @@
-# Bdfd-https-
-Complete free guide of bdfd $http functions with examples # 🌐 HTTP Functions
+# BDFD HTTP Guide
 
- Learn how to communicate with APIs using BDFD. These functions power AI bots, economy systems, transcripts, welcome cards, databases, and much more.
-
----
-
-## 🚀 `$httpPost[]`
-
-Sends data to an API.
-
-```bdfd
-$httpPost[https://bdfdapi.xyz/api/example;
-{
-  "username":"cenzo",
-  "message":"Hello from BDFD"
-}
-]
-```
-
-> 💡 Everything inside `{ }` is sent to the API.
-
-### Common Uses
-
-```diff
-+ AI Chatbots
-+ Economy Systems
-+ Database Storage
-+ Ticket Systems
-+ User Data
-```
+A beginner-friendly guide to the **`$http`** functions in BDFD.
 
 ---
 
-## 📥 `$httpGet[]`
+## What this is about
 
-Gets data from an API.
+The **`$http`** functions let your bot send and receive data over the internet. This is how your bot talks to other services.
 
-```bdfd
-$httpGet[https://bdfdapi.xyz/api/quote]
-```
+The services your bot talks to are called **APIs**. Think of them as websites designed for bots instead of people. When you open a website in your browser, you see a page with text and images. When your bot talks to an API, it gets back raw data (usually JSON) that it can use directly.
 
-Get the response:
+There are different types of requests for different jobs:
+- **GET**: read data from an API
+- **POST**: send new data to an API
+- **PUT**: replace existing data on an API
+- **PATCH**: update part of existing data on an API
+- **DELETE**: remove data from an API
 
-```bdfd
-$httpResult
-```
+Each type has its own function, and they all work the same way: you call the function, BDFD stores the response, then you use `$httpResult` to read it.
 
-### Common Uses
+With these functions you can build:
 
-```diff
-+ Quotes
-+ Search APIs
-+ Weather APIs
-+ User Profiles
-+ Public Data
-```
-
----
-
-## ✏️ `$httpPut[]`
-
-Replaces or updates existing data.
-
-```bdfd
-$httpPut[https://bdfdapi.xyz/api/user;
-{
-  "username":"cenzo",
-  "coins":500
-}
-]
-```
-
-```yaml
-Used when updating entire records.
-```
+- **AI chatbots**: talk to an AI API
+- **Economy systems**: save and load user balances from a database
+- **Weather commands**: get live weather data
+- **Quote or joke commands**: pull content from public APIs
+- **Custom databases**: connect your bot to your own backend
 
 ---
 
-## 🔧 `$httpPatch[]`
+## How this guide is organized
 
-Updates only specific values.
+Functions are grouped into three categories. Each category has its own folder, and each function has its own page.
 
-```bdfd
-$httpPatch[https://bdfdapi.xyz/api/user;
-{
-  "coins":1000
-}
-]
-```
+**Requests**: making calls to APIs
+- `$httpGet`, `$httpPost`, `$httpPut`, `$httpPatch`, `$httpDelete`
 
-```yaml
-Used when editing only a few fields.
-```
+**Headers**: controlling what you send
+- `$httpAddHeader`, `$httpRemoveHeader`, `$httpGetHeader`
 
----
+**Responses**: reading what comes back
+- `$httpResult`, `$httpStatus`
 
-## 🗑️ `$httpDelete[]`
+Every page explains:
 
-Deletes data from an API.
+- What the function does
+- The exact **syntax** (how to write it)
+- **What happens** when you call it
+- One or two **simple examples** you can try
+- **Common uses** for the function
+- **Related functions** to check next
 
-```bdfd
-$httpDelete[https://bdfdapi.xyz/api/user]
-```
-
-### Common Uses
-
-```diff
-- Delete User Data
-- Remove Warnings
-- Delete Economy Accounts
-```
+> Pick the function you need from the table below and click it.
 
 ---
 
-## 🔐 `$httpAddHeader[]`
+## Functions
 
-Adds extra information to requests.
-
-```bdfd
-$httpAddHeader[Authorization;Bearer cenzo-secret-key]
-```
-
-Another common example:
-
-```bdfd
-$httpAddHeader[Content-Type;application/json]
-```
-
-```ini
-[Required]
-Most private APIs require headers.
-```
+| Function | What it does |
+|---|---|
+| [$httpGet](requests/$httpGet.md) | Gets data from an API |
+| [$httpPost](requests/$httpPost.md) | Sends data to an API |
+| [$httpPut](requests/$httpPut.md) | Updates an existing resource on an API |
+| [$httpPatch](requests/$httpPatch.md) | Partially updates an existing resource on an API |
+| [$httpDelete](requests/$httpDelete.md) | Deletes a resource from an API |
+| [$httpAddHeader](headers/$httpAddHeader.md) | Adds a custom header to your HTTP request |
+| [$httpRemoveHeader](headers/$httpRemoveHeader.md) | Removes a header from your HTTP request |
+| [$httpStatus](responses/$httpStatus.md) | Gets the HTTP status code of the response |
+| [$httpResult](responses/$httpResult.md) | Gets the data returned by your HTTP request |
+| [$httpGetHeader](headers/$httpGetHeader.md) | Gets a specific header from the response |
 
 ---
 
-## ❌ `$httpRemoveHeader[]`
+## Where to start
 
-Removes a previously added header.
+If you are **completely new** to HTTP functions, read these two in order:
 
-```bdfd
-$httpRemoveHeader[Authorization]
-```
+1. **[$httpGet](requests/$httpGet.md)**: the simplest function. It just reads data.
+2. **[$httpResult](responses/$httpResult.md)**: used right after `$httpGet` to see the data.
 
----
-
-## 📊 `$httpStatus`
-
-Returns the status code from the last request.
-
-```bdfd
-$httpGet[https://bdfdapi.xyz/api/quote]
-
-Status: $httpStatus
-```
-
-### Common Status Codes
-
-```diff
-+ 200 = Success
-+ 201 = Created
-
-! 400 = Bad Request
-! 401 = Unauthorized
-! 403 = Forbidden
-! 404 = Not Found
-
-- 429 = Rate Limited
-- 500 = Server Error
-```
+Once you understand those two, everything else will click into place.
 
 ---
 
-## 📄 `$httpResult`
+## Source accuracy
 
-Returns the full response from the last request.
-
-```bdfd
-$httpGet[https://bdfdapi.xyz/api/quote]
-
-$httpResult
-```
-
-Example output:
-
-```json
-{
-  "quote":"Stay hungry, stay foolish.",
-  "author":"Steve Jobs"
-}
-```
-
----
-
-## 🎯 `$httpResult[]`
-
-Returns a specific value from JSON.
-
-Example response:
-
-```json
-{
-  "username":"cenzo",
-  "website":"bdfdapi.xyz",
-  "coins":500
-}
-```
-
-Get username:
-
-```bdfd
-$httpResult[username]
-```
-
-Get website:
-
-```bdfd
-$httpResult[website]
-```
-
-Get coins:
-
-```bdfd
-$httpResult[coins]
-```
-
-```diff
-+ Perfect when you only need one value.
-```
-
----
-
-## 📨 `$httpGetHeader[]`
-
-Gets a header from the API response.
-
-```bdfd
-$httpGet[https://bdfdapi.xyz/api/quote]
-
-$httpGetHeader[Content-Type]
-```
-
-Example output:
-
-```http
-application/json
-```
-
-Common headers:
-
-```http
-Content-Type
-Cache-Control
-Server
-Date
-```
-
----
-
-# 💎 Most Used Functions
-
-If you're new to APIs, learn these first:
-
-```bdfd
-$httpGet[]
-$httpPost[]
-$httpAddHeader[]
-$httpResult[]
-$httpStatus
-```
-
-```diff
-+ Master these 5 functions
-+ Use almost any API
-+ Build AI, economy, transcripts, tickets, and more
-```
+> All syntax shown in this guide is checked against BDFD's **official wiki** and **official function list**.
